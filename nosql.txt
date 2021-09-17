@@ -1,0 +1,283 @@
+@(shell):1:1
+> show dbs;
+admin       0.000GB
+config      0.000GB
+customerdb  0.000GB
+local       0.000GB
+> use cricket
+switched to db cricket
+> db
+cricket
+> show dbs;
+admin       0.000GB
+config      0.000GB
+customerdb  0.000GB
+local       0.000GB
+> db.cricket.insert({
+... name:"viart";
+... team:"India";
+... )}
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):2:12
+> db.cricket.insert({ name:"viart",team:"India",age:45 )}
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:53
+> db.cricket.insert({ name:"viart",team:"India",age:45})
+WriteResult({ "nInserted" : 1 })
+> db.cricket.find();
+{ "_id" : ObjectId("61444078ef3cd12f51a49e1a"), "name" : "viart", "team" : "India", "age" : 45 }
+> show collections
+cricket
+> var beginners=
+... [
+... {
+... name:"virat",
+... team:"rcb",
+... age:35},
+... {
+... name:"rohit",
+... team:"MI",
+... age:32},
+... {
+... name:"kane",
+... team:"SRH",
+... age:28},
+... ];
+> db.cricket.insert(beginners);
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 3,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.cricket.find();
+{ "_id" : ObjectId("61444078ef3cd12f51a49e1a"), "name" : "viart", "team" : "India", "age" : 45 }
+{ "_id" : ObjectId("61445235ef3cd12f51a49e1b"), "name" : "virat", "team" : "rcb", "age" : 35 }
+{ "_id" : ObjectId("61445235ef3cd12f51a49e1c"), "name" : "rohit", "team" : "MI", "age" : 32 }
+{ "_id" : ObjectId("61445235ef3cd12f51a49e1d"), "name" : "kane", "team" : "SRH", "age" : 28 }
+> db.cricket.find().petty();
+uncaught exception: TypeError: db.cricket.find(...).petty is not a function :
+@(shell):1:1
+> db.cricket.find().pitty();
+uncaught exception: TypeError: db.cricket.find(...).pitty is not a function :
+@(shell):1:1
+> db.cricket.find().prety();
+uncaught exception: TypeError: db.cricket.find(...).prety is not a function :
+@(shell):1:1
+> db.cricket.find().prity();
+uncaught exception: TypeError: db.cricket.find(...).prity is not a function :
+@(shell):1:1
+> db.cricket.find().pritty();
+uncaught exception: TypeError: db.cricket.find(...).pritty is not a function :
+@(shell):1:1
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohit",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28
+}
+> db.cricket.find({name:"virat"}).pretty();
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+> db.cricket.find({"age":{$gt:30}}).pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohit",
+        "team" : "MI",
+        "age" : 32
+}
+> db.got.update({"name":"virat"},{$set:{"name":"viratKohli"}});
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohit",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28
+}
+> db.got.update({"name":"rohit"},{$set:{"name":"rohitsharma"}});
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.cricket.update({"name":"rohit"},{$set:{"name":"rohitsharma"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohitsharma",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28   
+ "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+> db.cricket.find({"age":{$gt:30}}).pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohit",
+        "team" : "MI",
+        "age" : 32
+}
+> db.got.update({"name":"virat"},{$set:{"name":"viratKohli"}});
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohit",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28
+}
+> db.got.update({"name":"rohit"},{$set:{"name":"rohitsharma"}});
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.cricket.update({"name":"rohit"},{$set:{"name":"rohitsharma"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61444078ef3cd12f51a49e1a"),
+        "name" : "viart",
+        "team" : "India",
+        "age" : 45
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohitsharma",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28
+}
+> db.cricket.remove({name:"viart"});
+WriteResult({ "nRemoved" : 1 })
+> db.cricket.find().pretty();
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1b"),
+        "name" : "virat",
+        "team" : "rcb",
+        "age" : 35
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1c"),
+        "name" : "rohitsharma",
+        "team" : "MI",
+        "age" : 32
+}
+{
+        "_id" : ObjectId("61445235ef3cd12f51a49e1d"),
+        "name" : "kane",
+        "team" : "SRH",
+        "age" : 28
+}
